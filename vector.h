@@ -1,6 +1,9 @@
 #ifndef LAL_VECTOR
 #define LAL_VECTOR
 
+#include <stddef.h>
+
+typedef enum VecType VecType;
 enum VecType {
 	UNINIT,
 	INT,
@@ -8,6 +11,7 @@ enum VecType {
 	DOUBLE
 };
 
+typedef union VecField VecField;
 union VecField {
 	int* ints;
 	float* floats;
