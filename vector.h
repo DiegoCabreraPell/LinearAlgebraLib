@@ -28,7 +28,7 @@ struct Vector {
 
 int LAL_vector_init(Vector* v, VecType v_type, size_t v_size);
 
-int LAL_vector_null(Vector* v);
+void LAL_vector_null(Vector* v);
 
 
 int LAL_vector_add(Vector* v1, Vector* v2, Vector* res);
