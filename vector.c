@@ -52,7 +52,24 @@ void LAL_vector_null(Vector* v)
 }
 
 
-int LAL_vector_add(Vector* v1, Vector* v2, Vector* res){}
+int LAL_vector_add(Vector* v1, Vector* v2, Vector* res)
+{
+	size_t smallest = min(v1->size, v2->size);
+
+	if (v1->type == UNINIT || v2->type == UNINIT)
+		return -1;
+
+	if (res->type == UNINIT)
+	{
+		VecType most_precise = max(v1->type, v2->type);
+		LAL_vector_init(res, most_precise, smallest);
+	}
+
+	for (int i = 0; i < smallest; i++)
+	{
+
+	}
+}
 
 int LAL_vector_subtract(Vector* v1, Vector* v2, Vector* res){}
 
