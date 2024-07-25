@@ -269,7 +269,46 @@ int LAL_vector_subtract(Vector* v1, Vector* v2, Vector* res)
 }
 
 
-int LAL_vector_scale(Vector* v, double scalar){}
+int LAL_vector_scale(Vector* v, double scalar)
+{
+	switch (v->type)
+	{
+	case INT:
+		int intc, *is;
+		intc = (int)scalar;
+		is = v->field.ints;
+		for (int i = 0; i < v->size; i++)
+		{
+			is[i] *= intc;
+		}
+		break;
+
+	case FLOAT:
+		float fltc, *fs;
+		fltc = (float) scalar;
+		fs = v->field.floats;
+		for (int i = 0; i < v->size; i++)
+		{
+			fs[i] *= fltc;
+		}
+		break;
+
+	case DOUBLE:
+		double dblc, *ds;
+		dblc = (double)scalar;
+		ds = v->field.doubles;
+		for (int i = 0; i < v->size; i++)
+		{
+			ds[i] *= dblc;
+		}
+		break;
+
+	default:
+		return -1;
+	}
+
+	return 0;
+}
 
 
 int LAL_vector_dot(Vector* v1, Vector* v2, Vector* res){}
