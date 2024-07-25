@@ -346,7 +346,7 @@ int LAL_vector_dot(Vector* v1, Vector* v2, scalar* res)
 	double *dbls1, *dbls2, sum;
 	size_t smallest = min(v1->size, v2->size);
 
-	if (v1->size == UNINIT || v2->size == UNINIT)
+	if (v1->type == UNINIT || v2->type == UNINIT)
 		return -1;
 
 	sum = 0;
@@ -369,7 +369,10 @@ int LAL_vector_dot(Vector* v1, Vector* v2, scalar* res)
 	return 0;
 }
 
-int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res){}
+int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res)
+{
+
+}
 
 int LAL_vector_mag(Vector* v, scalar* res){}
 
