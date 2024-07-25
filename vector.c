@@ -171,7 +171,7 @@ int LAL_vector_add(Vector* v1, Vector* v2, Vector* res)
 
 	if (res->type == INT)
 	{
-		int* ints1, ints2, resInts;
+		int* ints1, *ints2, *resInts;
 
 		ints1 = LAL_field_to_ints_helper(v1->field, v1->type, smallest);
 		ints2 = LAL_field_to_ints_helper(v2->field, v2->type, smallest);
@@ -184,7 +184,7 @@ int LAL_vector_add(Vector* v1, Vector* v2, Vector* res)
 	}
 	else if (res->type == FLOAT)
 	{
-		float* flts1, flts2, resflts;
+		float* flts1, *flts2, *resflts;
 
 		flts1 = LAL_field_to_floats_helper(v1->field, v1->type, smallest);
 		flts2 = LAL_field_to_floats_helper(v2->field, v2->type, smallest);
@@ -197,7 +197,7 @@ int LAL_vector_add(Vector* v1, Vector* v2, Vector* res)
 	}
 	else
 	{
-		double* dbls1, dbls2, resdbls;
+		double* dbls1, *dbls2, *resdbls;
 
 		dbls1 = LAL_field_to_doubles_helper(v1->field, v1->type, smallest);
 		dbls2 = LAL_field_to_doubles_helper(v2->field, v2->type, smallest);
@@ -227,7 +227,7 @@ int LAL_vector_subtract(Vector* v1, Vector* v2, Vector* res)
 
 	if (res->type == INT)
 	{
-		int* ints1, ints2, resInts;
+		int* ints1, *ints2, *resInts;
 
 		ints1 = LAL_field_to_ints_helper(v1->field, v1->type, smallest);
 		ints2 = LAL_field_to_ints_helper(v2->field, v2->type, smallest);
@@ -240,7 +240,7 @@ int LAL_vector_subtract(Vector* v1, Vector* v2, Vector* res)
 	}
 	else if (res->type == FLOAT)
 	{
-		float* flts1, flts2, resflts;
+		float* flts1, *flts2, *resflts;
 
 		flts1 = LAL_field_to_floats_helper(v1->field, v1->type, smallest);
 		flts2 = LAL_field_to_floats_helper(v2->field, v2->type, smallest);
@@ -253,7 +253,7 @@ int LAL_vector_subtract(Vector* v1, Vector* v2, Vector* res)
 	}
 	else
 	{
-		double* dbls1, dbls2, resdbls;
+		double* dbls1, *dbls2, *resdbls;
 
 		dbls1 = LAL_field_to_doubles_helper(v1->field, v1->type, smallest);
 		dbls2 = LAL_field_to_doubles_helper(v2->field, v2->type, smallest);
