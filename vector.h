@@ -26,6 +26,8 @@ struct Vector {
 };
 
 
+typedef double scalar;
+
 int LAL_vector_init(Vector* v, VecType v_type, size_t v_size);
 
 void LAL_vector_null(Vector* v);
@@ -36,18 +38,14 @@ int LAL_vector_add(Vector* v1, Vector* v2, Vector* res);
 int LAL_vector_subtract(Vector* v1, Vector* v2, Vector* res);
 
 
-int LAL_vector_scale(Vector* v, double scalar);
+int LAL_vector_scale(Vector* v, scalar c);
 
 
-int LAL_vector_dot(Vector* v1, Vector* v2, Vector* res);
+int LAL_vector_dot(Vector* v1, Vector* v2, scalar* res);
 
 int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res);
 
-int LAL_vector_magi(Vector* v, int* res);
-
-int LAL_vector_magf(Vector* v, float* res);
-
-int LAL_vector_magd(Vector* v, double* res);
+int LAL_vector_mag(Vector* v, scalar* res);
 
 
 int LAL_vector_proj(Vector* v1, Vector* v2, Vector* res);
