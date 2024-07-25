@@ -65,9 +65,89 @@ int LAL_vector_add(Vector* v1, Vector* v2, Vector* res)
 		LAL_vector_init(res, most_precise, smallest);
 	}
 
+	int int1, int2;
+	int flt1, flt2;
+	int dbl1, dbl2;
 	for (int i = 0; i < smallest; i++)
 	{
+		if (res->type == INT)
+		{
+			if (v1->type == FLOAT)
+			{
+				int1 = (int) v1->field.floats[i];
+			}
+			else if (v1->type == DOUBLE)
+			{
+				int1 = (int) v1->field.doubles[i];
+			}
+			else
+				int1 = v1->field.ints[i];
 
+			if (v2->type == FLOAT)
+			{
+				int2 = (int) v2->field.floats[i];
+			}
+			else if (v2->type == DOUBLE)
+			{
+				int2 = (int) v2->field.doubles[i];
+			}
+			else
+				int2 = v2->field.ints[i];
+
+			res->field.ints[i] = int1 + int2;
+		}
+		else if (res->type == FLOAT)
+		{
+			if (v1->type == INT)
+			{
+				flt1 = (float)v1->field.ints[i];
+			}
+			else if (v1->type == DOUBLE)
+			{
+				flt1 = (float) v1->field.doubles[i];
+			}
+			else
+				flt1 = v1->field.floats[i];
+
+			if (v2->type == INT)
+			{
+				flt2 = (float)v2->field.ints[i];
+			}
+			else if (v2->type == DOUBLE)
+			{
+				flt2 = (float)v2->field.doubles[i];
+			}
+			else
+				flt2 = v2->field.floats[i];
+
+			res->field.ints[i] = int1 + int2;
+		}
+		else if (res->type == DOUBLE)
+		{
+			if (v1->type == INT)
+			{
+				dbl1 = (double)v1->field.ints[i];
+			}
+			else if (v1->type == FLOAT)
+			{
+				dbl1 = (double)v1->field.floats[i];
+			}
+			else
+				dbl1 = v1->field.doubles[i];
+
+			if (v2->type == INT)
+			{
+				dbl2 = (double)v2->field.ints[i];
+			}
+			else if (v2->type == FLOAT)
+			{
+				dbl2 = (double)v2->field.floats[i];
+			}
+			else
+				dbl2 = v2->field.doubles[i];
+
+			res->field.ints[i] = int1 + int2;
+		}
 	}
 }
 
