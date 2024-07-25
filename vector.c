@@ -299,13 +299,13 @@ int LAL_vector_subtract(Vector* v1, Vector* v2, Vector* res)
 }
 
 
-int LAL_vector_scale(Vector* v, double scalar)
+int LAL_vector_scale(Vector* v, scalar c)
 {
 	switch (v->type)
 	{
 	case INT:
 		int intc, *is;
-		intc = (int)scalar;
+		intc = (int)c;
 		is = v->field.ints;
 		for (int i = 0; i < v->size; i++)
 		{
@@ -315,7 +315,7 @@ int LAL_vector_scale(Vector* v, double scalar)
 
 	case FLOAT:
 		float fltc, *fs;
-		fltc = (float) scalar;
+		fltc = (float) c;
 		fs = v->field.floats;
 		for (int i = 0; i < v->size; i++)
 		{
@@ -325,7 +325,7 @@ int LAL_vector_scale(Vector* v, double scalar)
 
 	case DOUBLE:
 		double dblc, *ds;
-		dblc = (double)scalar;
+		dblc = (double)c;
 		ds = v->field.doubles;
 		for (int i = 0; i < v->size; i++)
 		{
@@ -341,15 +341,11 @@ int LAL_vector_scale(Vector* v, double scalar)
 }
 
 
-int LAL_vector_dot(Vector* v1, Vector* v2, Vector* res){}
+int LAL_vector_dot(Vector* v1, Vector* v2, scalar* res){}
 
 int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res){}
 
-int LAL_vector_magi(Vector* v, int* res){}
-
-int LAL_vector_magf(Vector* v, float* res){}
-
-int LAL_vector_magd(Vector* v, double* res){}
+int LAL_vector_mag(Vector* v, scalar* res){}
 
 
 int LAL_vector_proj(Vector* v1, Vector* v2, Vector* res){}
