@@ -341,7 +341,33 @@ int LAL_vector_scale(Vector* v, scalar c)
 }
 
 
-int LAL_vector_dot(Vector* v1, Vector* v2, scalar* res){}
+int LAL_vector_dot(Vector* v1, Vector* v2, scalar* res)
+{
+	double *dbls1, *dbls2, sum;
+	size_t smallest = min(v1->size, v2->size);
+
+	if (v1->size == UNINIT || v2->size == UNINIT)
+		return -1;
+
+	sum = 0;
+
+	dbls1 = LAL_field_to_doubles_helper(v1->field, v1->type, smallest);
+	dbls2 = LAL_field_to_doubles_helper(v2->field, v2->type, smallest);
+
+	for (int i = 0; i < smallestl; i++)
+	{
+		sum += dbls1[i] * dbls2[i];
+	}
+
+	free(dbls1);
+	free(dbls2);
+	dbls1 = NULL;
+	dbls2 = NULL;
+
+	*res = sum;
+
+	return 0;
+}
 
 int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res){}
 
