@@ -371,7 +371,8 @@ int LAL_vector_dot(Vector* v1, Vector* v2, scalar* res)
 
 int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res)
 {
-
+	if (v1->size != 3 || v2->size != 3 || v1->type == UNINIT || v2->type == UNINIT)
+		return -1;
 }
 
 int LAL_vector_mag(Vector* v, scalar* res){}
