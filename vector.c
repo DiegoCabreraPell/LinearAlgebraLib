@@ -181,6 +181,11 @@ int LAL_vector_add(Vector* v1, Vector* v2, Vector* res)
 		{
 			resInts[i] = ints1[i] + ints2[i];
 		}
+
+		free(ints1);
+		free(ints2);
+		ints1 = NULL;
+		ints2 = NULL;
 	}
 	else if (res->type == FLOAT)
 	{
@@ -194,6 +199,11 @@ int LAL_vector_add(Vector* v1, Vector* v2, Vector* res)
 		{
 			resflts[i] = flts1[i] + flts2[i];
 		}
+
+		free(flts1);
+		free(flts2);
+		flts1 = NULL;
+		flts2 = NULL;
 	}
 	else
 	{
@@ -207,6 +217,11 @@ int LAL_vector_add(Vector* v1, Vector* v2, Vector* res)
 		{
 			resdbls[i] = dbls1[i] + dbls2[i];
 		}
+
+		free(dbls1);
+		free(dbls2);
+		dbls1 = NULL;
+		dbls2 = NULL;
 	}
 
 	return 0;
