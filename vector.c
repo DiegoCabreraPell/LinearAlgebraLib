@@ -269,11 +269,7 @@ int LAL_vector_subtract(Vector* v1, Vector* v2, Vector* res)
 }
 
 
-int LAL_vector_scalei(Vector* v, int scalar){}
-
-int LAL_vector_scalef(Vector* v, float scalar){}
-
-int LAL_vector_scaled(Vector* v, double scalar){}
+int LAL_vector_scale(Vector* v, double scalar){}
 
 
 int LAL_vector_dot(Vector* v1, Vector* v2, Vector* res){}
