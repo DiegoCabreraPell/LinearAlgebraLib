@@ -212,7 +212,61 @@ int LAL_vector_add(Vector* v1, Vector* v2, Vector* res)
 	return 0;
 }
 
-int LAL_vector_subtract(Vector* v1, Vector* v2, Vector* res){}
+int LAL_vector_subtract(Vector* v1, Vector* v2, Vector* res)
+{
+	size_t smallest = min(v1->size, v2->size);
+
+	if (v1->type == UNINIT || v2->type == UNINIT)
+		return -1;
+
+	if (res->type == UNINIT)
+	{
+		VecType most_precise = max(v1->type, v2->type);
+		LAL_vector_init(res, most_precise, smallest);
+	}
+
+	if (res->type == INT)
+	{
+		int* ints1, ints2, resInts;
+
+		ints1 = LAL_field_to_ints_helper(v1->field, v1->type, smallest);
+		ints2 = LAL_field_to_ints_helper(v2->field, v2->type, smallest);
+		resInts = res->field.ints;
+
+		for (int i = 0; i < smallest; i++)
+		{
+			resInts[i] = ints1[i] - ints2[i];
+		}
+	}
+	else if (res->type == FLOAT)
+	{
+		float* flts1, flts2, resflts;
+
+		flts1 = LAL_field_to_floats_helper(v1->field, v1->type, smallest);
+		flts2 = LAL_field_to_floats_helper(v2->field, v2->type, smallest);
+		resflts = res->field.floats;
+
+		for (int i = 0; i < smallest; i++)
+		{
+			resflts[i] = flts1[i] - flts2[i];
+		}
+	}
+	else
+	{
+		double* dbls1, dbls2, resdbls;
+
+		dbls1 = LAL_field_to_doubles_helper(v1->field, v1->type, smallest);
+		dbls2 = LAL_field_to_doubles_helper(v2->field, v2->type, smallest);
+		resdbls = res->field.dbls;
+
+		for (int i = 0; i < smallest; i++)
+		{
+			resdbls[i] = dbls1[i] - dbls2[i];
+		}
+	}
+
+	return 0;
+}
 
 
 int LAL_vector_scalei(Vector* v, int scalar){}
