@@ -1,5 +1,6 @@
 #include "vector.h"
 #include <stdlib.h>
+#include <math.h>
 
 
 //Initializes v by allocating the memory needed for the field
@@ -437,7 +438,30 @@ int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res)
 	return 0;
 }
 
-int LAL_vector_mag(Vector* v, scalar* res){}
+int LAL_vector_mag(Vector* v, scalar* res) 
+{
+	if (v->type == UNINIT)
+		return -1;
+
+	size_t s = v->size;
+	double* dbls, val;
+	dbls = LAL_field_to_doubles_helper(v->field, v->type, s);
+
+	scalar sum = 0;
+
+	for (int i = 0; i < s; i++)
+	{
+		val = dbls[i];
+		sum += val * val;
+	}
+
+	free(dbls);
+	dbls = NULL;
+
+	*res = sqrt(sum);
+
+	return 0;
+}
 
 
 int LAL_vector_proj(Vector* v1, Vector* v2, Vector* res){}
