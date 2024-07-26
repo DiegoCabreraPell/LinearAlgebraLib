@@ -463,5 +463,54 @@ int LAL_vector_mag(Vector* v, scalar* res)
 	return 0;
 }
 
+/*
+* projv2(v1)
+*/
+int LAL_vector_proj(Vector* v1, Vector* v2, Vector* res)
+{
+	if (v1->type == UNINIT || v2->type == UNINIT || v2->size > v1->size)
+		return -1;
 
-int LAL_vector_proj(Vector* v1, Vector* v2, Vector* res){}
+	size_t s = v2->size;
+
+	if (res->type == UNINIT)
+	{
+		VecType most_precise = max(v1->type, v2->type);
+		LAL_vector_init(res, most_precise, s);
+	}
+
+	scalar sc, sum_squares, sum_prod;
+	double* dbls1, * dbls2, val;
+
+	dbls1 = LAL_field_to_doubles_helper(v1->field, v1->type, s);
+	dbls2 = LAL_field_to_doubles_helper(v2->field, v2->type, s);
+
+
+	sum_squares = 0;
+	sum_prod = 0;
+	for (int i = 0; i < s; i++)
+	{
+		val = dbls2[i];
+		sum_squares += val * val;
+
+		sum_prod = dbls1[i] * val;
+
+		if (res->type == INTS)
+			res->field.ints[i] = (int)val;
+		else if (res->type == FLOATS)
+			res->field.floats[i] = (float)val;
+		else
+			res->field.doubles[i] = val;
+	}
+
+	free(dbls1);
+	free(dbls2);
+	dbls1 = NULL;
+	dbls2 = NULL;
+
+	sc = sum_prod / sum_squares;
+
+	LAL_vector_scale(res, sc);
+
+	return 0;
+}
