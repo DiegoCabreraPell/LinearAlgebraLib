@@ -417,9 +417,24 @@ int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res)
 		flts2 = NULL;
 		break;
 	case DOUBLE:
-		break;
+		double* dbls1, * dbls2, resdbls;
+		dbls1 = LAL_field_to_doubles_helper(v1->field, v1->type, 3);
+		dbls2 = LAL_field_to_doubles_helper(v2->field, v2->type, 3);
 
+		resdbls = res->field.dbls;
+
+		resdbls[0] = (dbls1[1] * dbls2[2]) - (dbls1[2] - dbls2[1]);
+		resdbls[1] = (dbls1[2] * dbls2[0]) - (dbls1[0] - dbls2[2]);
+		resdbls[2] = (dbls1[0] * dbls2[1]) - (dbls1[1] - dbls2[0]);
+
+		free(dbls1);
+		free(dbls2);
+		dbls1 = NULL;
+		dbls2 = NULL;
+		break;
 	}
+
+	return 0;
 }
 
 int LAL_vector_mag(Vector* v, scalar* res){}
