@@ -2,6 +2,8 @@
 
 A basic linear algebra library.
 
+## Errors
+
 Functions return -1 if an error occured, 0 if no errors occured.
 An error will occur if any of the input vectors are uniitialized. However, the result vector may be uninitialized.
 
