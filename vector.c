@@ -401,6 +401,20 @@ int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res)
 		ints2 = NULL;
 		break;
 	case FLOAT:
+		float* flts1, * flts2, resflts;
+		flts1 = LAL_field_to_floats_helper(v1->field, v1->type, 3);
+		flts2 = LAL_field_to_floats_helper(v2->field, v2->type, 3);
+
+		resflts = res->field.flts;
+
+		resflts[0] = (flts1[1] * flts2[2]) - (flts1[2] - flts2[1]);
+		resflts[1] = (flts1[2] * flts2[0]) - (flts1[0] - flts2[2]);
+		resflts[2] = (flts1[0] * flts2[1]) - (flts1[1] - flts2[0]);
+
+		free(flts1);
+		free(flts2);
+		flts1 = NULL;
+		flts2 = NULL;
 		break;
 	case DOUBLE:
 		break;
