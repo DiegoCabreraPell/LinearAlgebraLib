@@ -371,16 +371,41 @@ int LAL_vector_dot(Vector* v1, Vector* v2, scalar* res)
 
 int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res)
 {
+	if (v1->size < 3 || v2->size < 3 || v1->type == UNINIT || v2->type == UNINIT)
+		return -1;
+
 	if (res->type == UNINIT)
 	{
 		VecType most_precise = max(v1->type, v2->type);
 		LAL_vector_init(res, most_precise, 3);
 	}
-
-	if (v1->size < 3 || v2->size < 3 || v1->type == UNINIT || v2->type == UNINIT || res->size < 3)
+	else if (res->size < 3)
 		return -1;
 
+	switch (res->type) 
+	{
+	case INT:
+		int* ints1, * ints2, resInts;
+		ints1 = LAL_field_to_ints_helper(v1->field, v1->type, 3);
+		ints2 = LAL_field_to_ints_helper(v2->field, v2->type, 3);
 
+		resInts = res->field.ints;
+
+		resInts[0] = (ints1[1] * ints2[2]) - (ints1[2] - ints2[1]);
+		resInts[1] = (ints1[2] * ints2[0]) - (ints1[0] - ints2[2]);
+		resInts[2] = (ints1[0] * ints2[1]) - (ints1[1] - ints2[0]);
+
+		free(ints1);
+		free(ints2);
+		ints1 = NULL;
+		ints2 = NULL;
+		break;
+	case FLOAT:
+		break;
+	case DOUBLE:
+		break;
+
+	}
 }
 
 int LAL_vector_mag(Vector* v, scalar* res){}
