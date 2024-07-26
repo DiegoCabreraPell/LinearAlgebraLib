@@ -371,8 +371,16 @@ int LAL_vector_dot(Vector* v1, Vector* v2, scalar* res)
 
 int LAL_vector_cross(Vector* v1, Vector* v2, Vector* res)
 {
-	if (v1->size != 3 || v2->size != 3 || v1->type == UNINIT || v2->type == UNINIT)
+	if (res->type == UNINIT)
+	{
+		VecType most_precise = max(v1->type, v2->type);
+		LAL_vector_init(res, most_precise, 3);
+	}
+
+	if (v1->size < 3 || v2->size < 3 || v1->type == UNINIT || v2->type == UNINIT || res->size < 3)
 		return -1;
+
+
 }
 
 int LAL_vector_mag(Vector* v, scalar* res){}
